@@ -1,5 +1,7 @@
 package com.netcracker;
 
+import com.sun.mail.smtp.SMTPMessage;
+
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.ServletException;
@@ -26,6 +28,7 @@ public class MyServlet extends HttpServlet {
 
         Properties mailProps = new Properties();
 
+        mailProps.put("mail.smtp.starttls.enable", "true");
         mailProps.put("mail.transport.protocol","smtp");
         mailProps.put("mail.smtp.host","smtp.yandex.ru");
         mailProps.put("mail.smtp.auth", "true");
@@ -36,13 +39,13 @@ public class MyServlet extends HttpServlet {
             }
         });
         try {
-            MimeMessage message = new MimeMessage(session);
-            message.setFrom(new InternetAddress("testMailJavaMail@yandex.ru"));
+            SMTPMessage message = new SMTPMessage(session);
+            message.setEnvelopeFrom("testMailJavaMail@yandex.ru");
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(email));
 
             message.setSubject(sub, "koi8-r");
             message.setText(text, "koi8-r");
-            
+
             Transport.send(message);
         } catch (MessagingException m){ m.printStackTrace();}
 
