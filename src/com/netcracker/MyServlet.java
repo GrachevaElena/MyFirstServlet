@@ -8,9 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-/**
- * Created by glak0514 on 14.11.2017.
- */
 @WebServlet("/authorization")
 public class MyServlet extends HttpServlet {
 
